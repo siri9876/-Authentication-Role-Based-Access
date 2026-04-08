@@ -12,10 +12,13 @@ connectDB();
 const app = express();
 
 // Middleware
+const cors = require("cors");
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://vercel.com/siri9876s-projects/authentication-role-based-access"
+    "https://authentication-role-based-access.vercel.app",
+    "https://authentication-role-based-access-git-main-siri9876s-projects.vercel.app"
   ],
   credentials: true
 }));
