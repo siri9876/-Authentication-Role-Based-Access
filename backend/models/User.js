@@ -49,9 +49,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-//
-// ✅ FIXED: Hash password before saving (NO next, async style)
-//
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
 
@@ -59,16 +56,13 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-//
-// ✅ Compare password method
-//
+
+
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-//
-// ✅ Remove password from JSON output
-//
+
 userSchema.methods.toJSON = function () {
   const user = this.toObject();
   delete user.password;

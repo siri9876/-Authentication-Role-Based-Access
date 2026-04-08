@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-// ✅ Correct base URL (NO brackets, NO markdown)
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-// Create axios instance
+
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -11,7 +11,7 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to add auth token
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -23,7 +23,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -36,7 +36,7 @@ api.interceptors.response.use(
   }
 );
 
-// Auth API calls
+
 export const authAPI = {
   signup: (data) => api.post('/auth/signup', data),
   login: (data) => api.post('/auth/login', data),
@@ -47,7 +47,7 @@ export const authAPI = {
   deleteUser: (userId) => api.delete(`/auth/users/${userId}`),
 };
 
-// Dashboard API calls
+
 export const dashboardAPI = {
   getAdminData: () => api.get('/dashboard/admin'),
   getRecruiterData: () => api.get('/dashboard/recruiter'),

@@ -13,8 +13,11 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173', // ✅ FIXED (removed wrong markdown)
-  credentials: true,
+  origin: [
+    "http://localhost:5173",
+    "https://vercel.com/siri9876s-projects/authentication-role-based-access"
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
