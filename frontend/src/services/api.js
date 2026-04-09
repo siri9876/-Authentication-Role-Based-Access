@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ats-backend-euwl.onrender.com/api';
-
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  'https://authentication-role-based-access.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -10,7 +10,6 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
 
 api.interceptors.request.use(
   (config) => {
@@ -22,7 +21,6 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
 
 api.interceptors.response.use(
   (response) => response,
@@ -36,7 +34,6 @@ api.interceptors.response.use(
   }
 );
 
-
 export const authAPI = {
   signup: (data) => api.post('/auth/signup', data),
   login: (data) => api.post('/auth/login', data),
@@ -46,7 +43,6 @@ export const authAPI = {
     api.patch(`/auth/users/${userId}/toggle-status`),
   deleteUser: (userId) => api.delete(`/auth/users/${userId}`),
 };
-
 
 export const dashboardAPI = {
   getAdminData: () => api.get('/dashboard/admin'),
