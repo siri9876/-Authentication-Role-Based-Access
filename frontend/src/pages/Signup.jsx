@@ -106,7 +106,10 @@ const Signup = () => {
 
       toast.success("Account created successfully!");
 
-      const userRole = response.data.data.user.role;
+      // SAFE ACCESS (fixed)
+      const userRole =
+        response?.data?.data?.user?.role ||
+        formData.role;
 
       navigate(getDashboardRoute(userRole), { replace: true });
 
@@ -114,12 +117,12 @@ const Signup = () => {
       console.error("Signup error:", error);
 
       const errorMessage =
-        error.response?.data?.message ||
+        error?.response?.data?.message ||
         "Signup failed. Please try again.";
 
       toast.error(errorMessage);
 
-      if (error.response?.data?.errors) {
+      if (error?.response?.data?.errors) {
         const serverErrors = {};
 
         error.response.data.errors.forEach((err) => {
@@ -144,7 +147,6 @@ const Signup = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* Name */}
           <input
             type="text"
             name="name"
@@ -155,7 +157,6 @@ const Signup = () => {
           />
           {errors.name && <p className="text-red-500">{errors.name}</p>}
 
-          {/* Email */}
           <input
             type="email"
             name="email"
@@ -166,7 +167,6 @@ const Signup = () => {
           />
           {errors.email && <p className="text-red-500">{errors.email}</p>}
 
-          {/* Role */}
           <select
             name="role"
             value={formData.role}
@@ -183,7 +183,6 @@ const Signup = () => {
           </select>
           {errors.role && <p className="text-red-500">{errors.role}</p>}
 
-          {/* Password */}
           <input
             type="password"
             name="password"
@@ -196,7 +195,6 @@ const Signup = () => {
             <p className="text-red-500">{errors.password}</p>
           )}
 
-          {/* Confirm Password */}
           <input
             type="password"
             name="confirmPassword"
