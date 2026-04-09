@@ -25,8 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
-app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: "API running" });
+app.get("/", (req, res) => {
+  res.send("Code Studio ATS API is running");
 });
 
 const PORT = process.env.PORT || 5000;
